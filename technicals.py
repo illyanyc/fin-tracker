@@ -113,7 +113,7 @@ class TechnicalAnalysis:
         lowest_low = hlc['low'].rolling(window=days,center=False).min()
         williams_range = (-100) * ((highest_high - hlc['close']) / (highest_high - lowest_low))
 
-        return DataFrame(williams_range.fillna(0)).rename(columns={'close':'williams_range'})
+        return DataFrame(williams_range.fillna(0)).rename(columns={0:'williams_range'})
 
     
     
