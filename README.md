@@ -13,45 +13,47 @@ pip install jupyterlab
 ### Packages
 
 ```python
+# data analysis
 conda install numpy
 conda install pandas
-
 conda install matplotlib
+
+
+# data connetions and api
+pip install python-dotenv
+pip install alpaca-trade-api
+
+
+# visualization
 conda install -c pyviz panel
-conda install -c plotly plotly
 
 conda install -c pyviz hvplot
 jupyter labextension install @pyviz/jupyterlab_pyviz
+
+conda install -c plotly plotly
+conda install "notebook>=5.3" "ipywidgets>=7.5"
+jupyter labextension install jupyterlab-plotly@4.14.3
+jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.14.3
 ```
 
 ---
 
 ## Technical analysis
-### RSI
+### ***RSI***
 [Relative Strength Index](https://www.investopedia.com/terms/r/rsi.asp), better known as RSI is a technical indicator used to determine is a particular security is overbought or oversold. It measures the magnitude of price change of the asset; and is an oscillator that moves between 0 and 100. RSI was developed by J. Welles Wilder Jr. in 1978.
 
-<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{300}&space;\bg_white&space;\huge&space;RSI_{step\:one}&space;=&space;\left(\frac{100}{1&plus;\frac{Average\:&space;gain}{Average\:loss}}\right)" title="\huge RSI_{step\:one} = \left(\frac{100}{1+\frac{Average\: gain}{Average\:loss}}\right)" width=220/>
-<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{300}&space;\bg_white&space;\huge&space;RSI_{step\:two}&space;=&space;\left(\frac{100}{1&plus;\frac{(Previous\:average\:gain\:\times\:13)\:&plus;\:Current\:gain}{-((Previous\:average\:loss\:\times\:13)\:&plus;\:Current\:loss)}}\right)" title="\huge RSI_{step\:two} = \left(\frac{100}{1+\frac{(Previous\:average\:gain\:\times\:13)\:+\:Current\:gain}{-((Previous\:average\:loss\:\times\:13)\:+\:Current\:loss)}}\right)" width=400 />
-<br>
-
-
-### MACD
-[Moving average convergence divergence (MACD)](https://www.investopedia.com/terms/m/macd.asp) is a trend-following momentum indicator that shows the relationship between two moving averages of a security’s price. The MACD is calculated by subtracting the 26-period exponential moving average (EMA) from the 12-period EMA.
-
-<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{300}&space;\bg_white&space;\huge&space;MACD&space;=&space;{12\:Period\:EMA\:}-{\:26\:Period\:EMA}" title="\huge MACD = {12\:Period\:EMA\:}-{\:26\:Period\:EMA}" width=380/>
-<br>
-
-[Exponential moving average](https://www.investopedia.com/terms/e/ema.asp) is a [moving average](https://www.investopedia.com/terms/m/movingaverage.asp) that places a greater weight to most recent data points and less to the older data points. In finance, EMA reacts more significantly to recent price changes than a [simple moving average (SMA)](, which applies an equal weight to all observations in the period.
-In statistics, a moving average (MA), also known as simple moving average (SMA) in finance, is a calculation used to analyze data points by creating a series of averages of different subsets of the full data set. 
-
-<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{300}&space;\bg_white&space;\huge&space;EMA_{today}&space;=&space;\left(&space;Value_{today}&space;*&space;\left(\frac{Smoothing}{1\:&plus;\:Days}\right)&space;\right)\:&plus;\:EMA_{yesterday}\:*\:\left(1\:-\:\frac{Smoothing}{1\:&plus;\:Days}\right)" title="\huge EMA_{today} = \left( Value_{today} * \left(\frac{Smoothing}{1\:+\:Days}\right) \right)\:+\:EMA_{yesterday}\:*\:\left(1\:-\:\frac{Smoothing}{1\:+\:Days}\right)"  width=330/>
-<br>
-
-MACD is used by traders to indicate bullish and bearish reversals when the EMA trendlines cross.
+<a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;RSI&space;=&space;100&space;-&space;\left(\frac{100}{1&plus;Relative\:Strenght}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;RSI&space;=&space;100&space;-&space;\left(\frac{100}{1&plus;Relative\:Strenght}\right)" title="RSI = 100 - \left(\frac{100}{1+Relative\:Strenght}\right)" /></a>
 <br>
 <br>
 
-### Williams %R
+### ***Williams %R***
+Williams %R, also known as the Williams Percent Range, is a type of momentum indicator that moves between 0 and -100 and measures overbought and oversold levels. The Williams %R may be used to find entry and exit points in the market. The indicator is very similar to the Stochastic oscillator and is used in the same way. It was developed by Larry Williams and it compares a stock’s closing price to the high-low range over a specific period, typically 14 days or periods.
 
+<a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" title="Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" /></a>
 
+<br>
 
+---
+
+Developed by Illya Nayshevsky Ph.D. <br>
+email: <illya.nayshevsky@gmail.com>
