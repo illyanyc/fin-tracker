@@ -49,7 +49,7 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.
 ### ***Williams %R***
 Williams %R, also known as the Williams Percent Range, is a type of momentum indicator that moves between 0 and -100 and measures overbought and oversold levels. The Williams %R may be used to find entry and exit points in the market. The indicator is very similar to the Stochastic oscillator and is used in the same way. It was developed by Larry Williams and it compares a stock’s closing price to the high-low range over a specific period, typically 14 days or periods.
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" title="Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;Williams\:Percent\:Range=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;Williams\:Percent\:Range=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" title="Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" /></a>
 
 <br>
 
