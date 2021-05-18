@@ -87,21 +87,20 @@ class TechnicalAnalysis:
         return DataFrame(rsi.fillna(0)).rename(columns={'close':'rsi'})
         
     
+    # Get Williams %R Values
     def williams_range(self,
                        days : int = 14, 
                        ticker : str = 'AAPL') -> DataFrame:
         '''Returns pd.DataFrame with Williams %R values
 
-        ...
-
         Parameters
         ----------
-        close : DataFrame - singel indexed DataFrame contains OHLCV for a given ticker
-        days : int() - number of days for Williams %R calculation
+        days : int - number of days for RSI calculation; default = 14
+        ticker : str - ticker to be processed - default = 'AAPL'
 
         Returns
         -------
-        rsi : DataFrame - Williams %R values
+        williams_range : DataFrame - Williams %R values
         '''
         
         df = self.ohlcv
