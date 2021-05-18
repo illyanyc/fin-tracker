@@ -25,8 +25,9 @@ class TechnicalAnalysis:
         df = self.ohlcv
         return list(df.columns.levels[0])
     
+    
     def close(self,
-             ticker : str = 'AAPL') -> DataFrame:
+             ticker: str) -> DataFrame:
         '''Returns close price for ticker
         
         Parameters
@@ -86,6 +87,33 @@ class TechnicalAnalysis:
         return DataFrame(rsi.fillna(0)).rename(columns={'close':'rsi'})
         
     
+    def williams_range(self,
+                       days : int = 14, 
+                       ticker : str = 'AAPL') -> DataFrame:
+        '''Returns pd.DataFrame with Williams %R values
+
+        ...
+
+        Parameters
+        ----------
+        close : DataFrame - singel indexed DataFrame contains OHLCV for a given ticker
+        days : int() - number of days for Williams %R calculation
+
+        Returns
+        -------
+        rsi : DataFrame - Williams %R values
+        '''
+        
+        df = self.ohlcv
+        
+        # get close price
+        hlc = df.loc[:,ticker]
+
+        highest_high = hlc['high'].rolling(window=days,center=False).max()
+        lowest_low = hlc['low'].rolling(window=days,center=False).min()
+        williams_range = (-100) * ((highest_high - hlc['close']) / (highest_high - lowest_low))
+
+        return DataFrame(williams_range.fillna(0)).rename(columns={'close':'williams_range'})
 
     
     
