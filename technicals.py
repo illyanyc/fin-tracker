@@ -14,14 +14,28 @@ from pandas import DataFrame
 
 
 class TechnicalAnalysis:
-    '''TODO: documentation'''
+    '''Class used to calculate technical indicators
+    
+    Attributes
+    ----------
+    ohlcv : DataFrame
+        a multiindexed DataFrame of Open, High, Low, Close, Volume data of Tickers
+    
+    '''
     
     def __init__(self, _ohlcv):
+        '''
+        Parameters
+        ----------
+        _ohlcv : DataFrame
+            current working multiindexed DataFrame of Open, High, Low, Close, Volume data of Tickers
+        '''
         self.ohlcv = _ohlcv
         
-    
+   
     def tickers(self):
-        '''Returns a list of tickers inside ohlcv'''
+        '''Returns a list of tickers inside ohlcv
+        '''
         df = self.ohlcv
         return list(df.columns.levels[0])
     
@@ -32,11 +46,13 @@ class TechnicalAnalysis:
         
         Parameters
         ----------
-        ticker : str - ticker to be processed - default = 'AAPL'
+        ticker : str
+            ticker to be processed - default = 'AAPL'
 
         Returns
         -------
-        rsi : DataFrame - close values
+        rsi : DataFrame
+            'close' values
         '''
         df = self.ohlcv.xs('close', 
                            axis=1, 
@@ -54,12 +70,15 @@ class TechnicalAnalysis:
 
         Parameters
         ----------
-        days : int - number of days for RSI calculation; default = 14
-        ticker : str - ticker to be processed - default = 'AAPL'
+        days : int
+            number of days for RSI calculation; default = 14
+        ticker : str
+            ticker to be processed - default = 'AAPL'
 
         Returns
         -------
-        rsi : DataFrame - RSI values
+        rsi : DataFrame
+            RSI values
         '''
 
         df = self.ohlcv
@@ -95,12 +114,15 @@ class TechnicalAnalysis:
 
         Parameters
         ----------
-        days : int - number of days for RSI calculation; default = 14
-        ticker : str - ticker to be processed - default = 'AAPL'
+        days : int
+            number of days for RSI calculation; default = 14
+        ticker : str
+            ticker to be processed - default = 'AAPL'
 
         Returns
         -------
-        williams_range : DataFrame - Williams %R values
+        williams_range : DataFrame
+            Williams %R values
         '''
         
         df = self.ohlcv
@@ -114,7 +136,53 @@ class TechnicalAnalysis:
 
         return DataFrame(williams_range.fillna(0)).rename(columns={0:'williams_range'})
 
+        
     
+    # Get Aroon Indicator
+    def aroon(self,
+              days : int = 25,
+              ticker : str = 'AAPL'):
+    
+        '''Returns pd.DataFrame with aroon Oscillator values
+
+        Parameters
+        ----------
+        days : int
+            number of days for Aroon Oscillator calculation; default = 25
+        ticker : str
+            ticker to be processed - default = 'AAPL'
+
+        Returns
+        -------
+        aroon : DataFrame
+            Aroon high {aroon_up}, Aroon low {aroow_down}, and Aroon Oscillator {aroon_oscillator}
+        '''
+    
+        df = self.ohlcv
+        
+        # get close price
+        hlc = df.loc[:,ticker]
+
+        aroon_up = []
+        aroon_down = []
+
+        n_days = days
+        while n_days < len(list(hlc.index)):
+            date = hlc['close'][n_days-days:n_days].index
+
+            up = ((hlc['close'][n_days-days:n_days].tolist().index(max(hlc['close'][n_days-days:n_days])))/days)*100
+            aroon_up.append(up)
+
+            down = ((hlc['close'][n_days-days:n_days].tolist().index(min(hlc['close'][n_days-days:n_days])))/days)*100
+            aroon_down.append(down)
+
+            n_days += 1
+
+        aroon = DataFrame([0] * days + [x - y for x, y in zip(aroon_up, aroon_down)], index=hlc.index.values).rename(columns={0:'aroon_oscillator'})
+        aroon['aroon_up'] = [0] * days + aroon_up
+        aroon['aroon_down'] = [0] * days + aroon_down
+
+        return aroon
     
     
 def test():

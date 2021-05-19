@@ -44,14 +44,38 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;RSI&space;=&space;100&space;-&space;\left(\frac{100}{1&plus;Relative\:Strenght}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;RSI&space;=&space;100&space;-&space;\left(\frac{100}{1&plus;Relative\:Strenght}\right)" title="RSI = 100 - \left(\frac{100}{1+Relative\:Strenght}\right)" /></a>
 <br>
+
+where ***Relative strenght*** (***RS***)= *average gain* - *average loss*
+
 <br>
 
 ### ***Williams %R***
-Williams %R, also known as the Williams Percent Range, is a type of momentum indicator that moves between 0 and -100 and measures overbought and oversold levels. The Williams %R may be used to find entry and exit points in the market. The indicator is very similar to the Stochastic oscillator and is used in the same way. It was developed by Larry Williams and it compares a stock’s closing price to the high-low range over a specific period, typically 14 days or periods.
+[Williams %R](https://www.investopedia.com/terms/w/williamsr.asp) (*Williams Percent Range*), is a momentum indicator with range [-100, 0] measures overbought and oversold levels. Williams %R measures ratio of the differences:
+* highest high and close <br>
+* highest high and lowest low <br>
+
+therefore capturing the directional momentum.
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;Williams\:Percent\:Range=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;Williams\:Percent\:Range=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" title="Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" /></a>
 
 <br>
+
+### ***Aroon Indicator***
+[Aroon indicator](https://www.investopedia.com/terms/a/aroon.asp) measures time between highs and the time between lows over a time period.
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\bg_white&space;\bg_white&space;\fn_cm&space;Aroon\:Up=&space;\frac{{a_{period}}&space;-&space;{n_{periods}\textup{\:since}\:a_{period}\:max}}{a_{period}}&space;*&space;100" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dpi{100}&space;\bg_white&space;\bg_white&space;\fn_cm&space;Aroon\:Up=&space;\frac{{a_{period}}&space;-&space;{n_{periods}\textup{\:since}\:a_{period}\:max}}{a_{period}}&space;*&space;100" title="\bg_white \bg_white \fn_cm Aroon\:Up= \frac{{a_{period}} - {n_{periods}\textup{\:since}\:a_{period}\:max}}{a_{period}} * 100" /></a>
+
+<br>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\bg_white&space;\bg_white&space;\fn_cm&space;Aroon\:Down&space;=&space;\frac{{a_{period}}&space;-&space;{n_{periods}\textup{\:since}\:a_{period}\:min}}{a_{period}}&space;*&space;100" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dpi{100}&space;\bg_white&space;\bg_white&space;\fn_cm&space;Aroon\:Down&space;=&space;\frac{{a_{period}}&space;-&space;{n_{periods}\textup{\:since}\:a_{period}\:min}}{a_{period}}&space;*&space;100" title="\bg_white \bg_white \fn_cm Aroon\:Down = \frac{{a_{period}} - {n_{periods}\textup{\:since}\:a_{period}\:min}}{a_{period}} * 100" /></a>
+
+<br>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\bg_white&space;\fn_cm&space;Arron\:Oscillator=Aroon\:Up-Aroon\:Down" target="_blank"><img src="https://latex.codecogs.com/png.latex?\dpi{100}&space;\bg_white&space;\fn_cm&space;Arron\:Oscillator=Aroon\:Up-Aroon\:Down" title="Arron\:Oscillator=Aroon\:Up-Aroon\:Down" /></a>
+
+<br>
+
+where *a<sub>period</sub>* = period of time to be measured.
 
 ---
 
