@@ -1,11 +1,14 @@
-# fin-tracker
+![header](https://capsule-render.vercel.app/api?type=slice&color=gradient&height=300&section=header&text=technitrade&fontSize=60&fontColor=black)
 
-Fintracker is a public python library of all (or rather most) financial technical indicators
+
+<code>technitrade</code> *is a developing public python library of all (or rather most) financial technical indicators*
+
+estimated completion of v.0.1 --> Q4 2021
 
 ---
 
 ## Requirements
-fin-tracker is composed in <code>.ipynb</code> [Jupyter](https://jupyter.org/install) notebooks that run on [Anaconda](https://docs.anaconda.com/)
+<code>technitrade</code> is composed in <code>.ipynb</code> [Jupyter](https://jupyter.org/install) notebooks that run on [Anaconda](https://docs.anaconda.com/)
 ```bash
 pip install jupyterlab
 ```
@@ -45,7 +48,7 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.
 <a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;RSI&space;=&space;100&space;-&space;\left(\frac{100}{1&plus;Relative\:Strenght}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;RSI&space;=&space;100&space;-&space;\left(\frac{100}{1&plus;Relative\:Strenght}\right)" title="RSI = 100 - \left(\frac{100}{1+Relative\:Strenght}\right)" /></a>
 <br>
 
-where ***Relative strenght*** (***RS***)= *average gain* - *average loss*
+where ***Relative strenght*** (***RS***) = *average gain* - *average loss*
 
 <br>
 
@@ -75,9 +78,9 @@ therefore capturing the directional momentum.
 
 <br>
 
-where *a<sub>period</sub>* = period of time to be measured.
+where ***a<sub>period</sub>*** = period of time to be measured.
 
 ---
+[Illya Nayshevsky, Ph.D.](illya.n@me.com) <br>
 
-Developed by Illya Nayshevsky Ph.D. <br>
-email: <illya.nayshevsky@gmail.com>
+[<img src="https://cdn2.auth0.com/docs/media/connections/linkedin.png" alt="LinkedIn -  Illya Nayshevsky" width=25/>](https://www.linkedin.com/in/illyanayshevskyy/)
