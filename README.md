@@ -29,15 +29,51 @@ pip install alpaca-trade-api
 
 # visualization
 conda install -c pyviz panel
-
 conda install -c pyviz hvplot
-jupyter labextension install @pyviz/jupyterlab_pyviz
-
 conda install -c plotly plotly
+
 conda install "notebook>=5.3" "ipywidgets>=7.5"
 jupyter labextension install jupyterlab-plotly@4.14.3
 jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.14.3
 ```
+
+---
+
+## Usage
+Import the <code>TechnicalAnalysis</code> module:
+
+```python
+from technicals import TechnicalAnalysis
+import data.marketdata.alpaca as api
+```
+<br>
+
+Gather **ohlcv** (*open, high, low, close, volume*) data:
+```python
+tickers = ['FB','AAPL','AMZN','NFLX','GOOG'] # a list of tickers
+ohlcv = api.ohlcv(tickers) # calls Alpaca Trade API and gers ohlcv data
+```
+
+<br>
+
+Alternatly, you can get **ohlcv** data for entire index by accessing the tickers within <code>data/tickers/</code> which contain <code>.csv</code> files named **nasdaq**, **nyse**, **amex**. These files contain company data in the following format:
+```sql
+COLUMNS ('Symbol', 'Name', 'Country', 'IPO Year', 'Sector', 'Industry')
+```
+
+<br>
+
+Once the data is loaded, create an instance of the object and pass the **ohlcv** data:
+```python
+technicals = TechnicalAnalysis(ohlcv)
+```
+<br>
+
+Testing the instance of the class can be done by calling:
+```python
+technicals.close(ticker=tickers[0]).head()
+```
+
 
 ---
 
@@ -49,7 +85,28 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.
 <br>
 
 where ***Relative strenght*** (***RS***) = *average gain* - *average loss*
+<br>
 
+***Class method:***
+```python
+rsi(days : int = 14,
+    ticker : str) -> DataFrame:
+            
+        '''Returns pd.DataFrame with RSI values
+
+        Parameters
+        ----------
+        days : int
+            number of days for RSI calculation; default = 14
+        ticker : str
+            ticker to be processed - default = 'AAPL'
+
+        Returns
+        -------
+        rsi : DataFrame
+            RSI values
+        '''
+```
 <br>
 
 ### ***Williams %R***
@@ -61,6 +118,28 @@ therefore capturing the directional momentum.
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\bg_white&space;\fn_cm&space;Williams\:Percent\:Range=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;Williams\:Percent\:Range=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" title="Williams\:Percent\:R=\left(\frac{Highest\:High-Close}{Highest\:High-Lowest\:Low}\right)" /></a>
 
+<br>
+
+***Class method:***
+```python
+williams_range(days : int = 14,
+               ticker : str) -> DataFrame:
+    
+        '''Returns pd.DataFrame with Williams %R values
+
+        Parameters
+        ----------
+        days : int
+            number of days for RSI calculation; default = 14
+        ticker : str
+            ticker to be processed - default = 'AAPL'
+
+        Returns
+        -------
+        williams_range : DataFrame
+            Williams %R values
+        '''
+```
 <br>
 
 ### ***Aroon Indicator***
@@ -80,6 +159,28 @@ therefore capturing the directional momentum.
 
 where ***a<sub>period</sub>*** = period of time to be measured.
 
+<br>
+
+***Class method:***
+```python
+aroon(days : int = 25,
+      ticker : str):
+    
+        '''Returns pd.DataFrame with aroon Oscillator values
+
+        Parameters
+        ----------
+        days : int
+            number of days for Aroon Oscillator calculation; default = 25
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        aroon : DataFrame
+            Aroon high {aroon_up}, Aroon low {aroow_down}, and Aroon Oscillator {aroon_oscillator}
+        '''
+```
 ---
 [Illya Nayshevsky, Ph.D.](illya.n@me.com) <br>
 

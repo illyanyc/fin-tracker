@@ -32,6 +32,27 @@ class TechnicalAnalysis:
         '''
         self.ohlcv = _ohlcv
         
+        
+    def validate_ticker(self, 
+                        ticker : str):
+        '''Helper method - validates if ticker is not null, not empty, and is present in the self.ohlcv'''
+        
+        _tickers = self.tickers()
+
+        if not ticker:
+            raise ValueError(f"Ticker param is empty: please pass a correct ticker -> ticker = str({ticker})")
+        elif ticker:
+            if isinstance(ticker, str):
+                if ticker not in _tickers:
+                    raise ValueError(f"Ticker {ticker} not found in self.ohlcv DataFrame")
+                elif ticker in _tickers:
+                    pass
+                
+            elif isinstance(ticker, int):
+                raise TypeError(f"Incorrect ticker format: ticker cannot contain integers")
+            else:
+                raise TypeError(f"Incorrect data type: ticker must be a str -> str({ticker})")
+                
    
     def tickers(self):
         '''Returns a list of tickers inside ohlcv
@@ -41,7 +62,7 @@ class TechnicalAnalysis:
     
     
     def close(self,
-             ticker: str) -> DataFrame:
+             ticker) -> DataFrame:
         '''Returns close price for ticker
         
         Parameters
@@ -54,6 +75,8 @@ class TechnicalAnalysis:
         rsi : DataFrame
             'close' values
         '''
+        self.validate_ticker(ticker=ticker) # validate ticker
+        
         df = self.ohlcv.xs('close', 
                            axis=1, 
                            level=1, 
@@ -63,9 +86,9 @@ class TechnicalAnalysis:
     
     
     # Get RSI Values
-    def rsi(self, 
-            days : int = 14, 
-            ticker : str = 'AAPL') -> DataFrame:
+    def rsi(self,
+            ticker : str,
+            days : int = 14) -> DataFrame:
         '''Returns pd.DataFrame with RSI values
 
         Parameters
@@ -73,14 +96,16 @@ class TechnicalAnalysis:
         days : int
             number of days for RSI calculation; default = 14
         ticker : str
-            ticker to be processed - default = 'AAPL'
+            ticker to be processed
 
         Returns
         -------
         rsi : DataFrame
             RSI values
         '''
-
+        
+        self.validate_ticker(ticker=ticker) # validate ticker
+        
         df = self.ohlcv
         
         # get close price
@@ -108,8 +133,8 @@ class TechnicalAnalysis:
     
     # Get Williams %R Values
     def williams_range(self,
-                       days : int = 14, 
-                       ticker : str = 'AAPL') -> DataFrame:
+                       ticker : str,
+                       days : int = 14) -> DataFrame:
         '''Returns pd.DataFrame with Williams %R values
 
         Parameters
@@ -117,13 +142,15 @@ class TechnicalAnalysis:
         days : int
             number of days for RSI calculation; default = 14
         ticker : str
-            ticker to be processed - default = 'AAPL'
+            ticker to be processed
 
         Returns
         -------
         williams_range : DataFrame
             Williams %R values
         '''
+        
+        self.validate_ticker(ticker=ticker) # validate ticker
         
         df = self.ohlcv
         
@@ -140,8 +167,8 @@ class TechnicalAnalysis:
     
     # Get Aroon Indicator
     def aroon(self,
-              days : int = 25,
-              ticker : str = 'AAPL'):
+              ticker : str,
+              days : int = 25) -> DataFrame:
     
         '''Returns pd.DataFrame with aroon Oscillator values
 
@@ -150,7 +177,7 @@ class TechnicalAnalysis:
         days : int
             number of days for Aroon Oscillator calculation; default = 25
         ticker : str
-            ticker to be processed - default = 'AAPL'
+            ticker to be processed
 
         Returns
         -------
@@ -158,6 +185,8 @@ class TechnicalAnalysis:
             Aroon high {aroon_up}, Aroon low {aroow_down}, and Aroon Oscillator {aroon_oscillator}
         '''
     
+        self.validate_ticker(ticker=ticker) # validate ticker
+
         df = self.ohlcv
         
         # get close price
