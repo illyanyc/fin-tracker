@@ -14,12 +14,13 @@ from pandas import DataFrame
 
 
 class TechnicalAnalysis:
-    '''Class used to calculate technical indicators
+    '''
+    Class used to calculate technical indicators
     
-    Attributes
-    ----------
-    ohlcv : DataFrame
-        a multiindexed DataFrame of Open, High, Low, Close, Volume data of Tickers
+        Attributes
+        ----------
+        ohlcv : DataFrame
+            a multiindexed DataFrame of Open, High, Low, Close, Volume data of Tickers
     
     '''
     
@@ -63,17 +64,18 @@ class TechnicalAnalysis:
     
     def _open(self,
              ticker) -> DataFrame:
-        '''Returns open price for ticker
+        '''
+        Returns open price for ticker
         
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
+            Parameters
+            ----------
+            ticker : str
+                ticker to be processed
 
-        Returns
-        -------
-        df : DataFrame
-            'close' values
+            Returns
+            -------
+            df : DataFrame
+                'close' values
         '''
         self.validate_ticker(ticker=ticker) # validate ticker
         
@@ -87,17 +89,18 @@ class TechnicalAnalysis:
     
     def _high(self,
              ticker) -> DataFrame:
-        '''Returns high price for ticker
+        '''
+        Returns high price for ticker
         
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
+            Parameters
+            ----------
+            ticker : str
+                ticker to be processed
 
-        Returns
-        -------
-        df : DataFrame
-            'high' values
+            Returns
+            -------
+            df : DataFrame
+                'high' values
         '''
         self.validate_ticker(ticker=ticker) # validate ticker
         
@@ -111,17 +114,18 @@ class TechnicalAnalysis:
     
     def _low(self,
              ticker) -> DataFrame:
-        '''Returns low price for ticker
+        '''
+        Returns low price for ticker
         
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
+            Parameters
+            ----------
+            ticker : str
+                ticker to be processed
 
-        Returns
-        -------
-        df : DataFrame
-            'low' values
+            Returns
+            -------
+            df : DataFrame
+                'low' values
         '''
         self.validate_ticker(ticker=ticker) # validate ticker
         
@@ -135,17 +139,18 @@ class TechnicalAnalysis:
     
     def _close(self,
              ticker) -> DataFrame:
-        '''Returns close price for ticker
+        '''
+        Returns close price for ticker
         
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed - default = 'AAPL'
+            Parameters
+            ----------
+            ticker : str
+                ticker to be processed - default = 'AAPL'
 
-        Returns
-        -------
-        df : DataFrame
-            'close' values
+            Returns
+            -------
+            df : DataFrame
+                'close' values
         '''
         self.validate_ticker(ticker=ticker) # validate ticker
         
@@ -159,17 +164,18 @@ class TechnicalAnalysis:
     
     def _volume(self,
              ticker) -> DataFrame:
-        '''Returns volume for ticker
+        '''
+        Returns volume for ticker
         
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
+            Parameters
+            ----------
+            ticker : str
+                ticker to be processed
 
-        Returns
-        -------
-        df : DataFrame
-            'volume' values
+            Returns
+            -------
+            df : DataFrame
+                'volume' values
         '''
         self.validate_ticker(ticker=ticker) # validate ticker
         
@@ -185,19 +191,20 @@ class TechnicalAnalysis:
     def rsi(self,
             ticker : str,
             days : int = 14) -> DataFrame:
-        '''Returns pd.DataFrame with RSI values
+        '''
+        Returns pd.DataFrame with RSI values
 
-        Parameters
-        ----------
-        days : int
-            number of days for RSI calculation; default = 14
-        ticker : str
-            ticker to be processed
+            Parameters
+            ----------
+            days : int
+                number of days for RSI calculation; default = 14
+            ticker : str
+                ticker to be processed
 
-        Returns
-        -------
-        rsi : DataFrame
-            RSI values
+            Returns
+            -------
+            rsi : DataFrame
+                RSI values
         '''
         
         self.validate_ticker(ticker=ticker) # validate ticker
@@ -231,19 +238,20 @@ class TechnicalAnalysis:
     def williams_range(self,
                        ticker : str,
                        days : int = 14) -> DataFrame:
-        '''Returns pd.DataFrame with Williams %R values
+        '''
+        Returns pd.DataFrame with Williams %R values
 
-        Parameters
-        ----------
-        days : int
-            number of days for RSI calculation; default = 14
-        ticker : str
-            ticker to be processed
+            Parameters
+            ----------
+            days : int
+                number of days for RSI calculation; default = 14
+            ticker : str
+                ticker to be processed
 
-        Returns
-        -------
-        williams_range : DataFrame
-            Williams %R values
+            Returns
+            -------
+            williams_range : DataFrame
+                Williams %R values
         '''
         
         self.validate_ticker(ticker=ticker) # validate ticker
@@ -266,19 +274,20 @@ class TechnicalAnalysis:
               ticker : str,
               days : int = 25) -> DataFrame:
     
-        '''Returns pd.DataFrame with aroon Oscillator values
+        '''
+        Returns pd.DataFrame with aroon Oscillator values
 
-        Parameters
-        ----------
-        days : int
-            number of days for Aroon Oscillator calculation; default = 25
-        ticker : str
-            ticker to be processed
+            Parameters
+            ----------
+            days : int
+                number of days for Aroon Oscillator calculation; default = 25
+            ticker : str
+                ticker to be processed
 
-        Returns
-        -------
-        aroon : DataFrame
-            Aroon high {aroon_up}, Aroon low {aroow_down}, and Aroon Oscillator {aroon_oscillator}
+            Returns
+            -------
+            aroon : DataFrame
+                Aroon high {aroon_up}, Aroon low {aroow_down}, and Aroon Oscillator {aroon_oscillator}
         '''
     
         self.validate_ticker(ticker=ticker) # validate ticker

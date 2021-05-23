@@ -70,7 +70,7 @@ def ohlcv(tickers: list or DataFrame,
     -------
     ohlcv_df : DataFrame with securities price data
     '''
-    api = load_api_keys(api_path)
+    api = load_api_keys(api_key_path)
     
     # parse start and end dates
     start_date = Timestamp(start_date, tz="America/New_York").isoformat()

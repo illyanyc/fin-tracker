@@ -59,6 +59,9 @@ pip install alpaca-trade-api
 Import the <code>TechnicalAnalysis</code> module:
 
 ```python
+import numpy as np
+import pandas as pd
+
 from technicals import TechnicalAnalysis
 import data.marketdata.alpaca as api
 ```
@@ -97,8 +100,14 @@ technicals = TechnicalAnalysis(ohlcv)
 
 Testing the instance of the class can be done by plotting the closing price for the first ticker in the tickers list:
 ```python
-print(f"Open price data for {stocks.tickers()[0]}")
-technicals._open(ticker=stocks.tickers()[0]).tail(14).plot(color='black')
+print(f"Open price data for {technicals.tickers()[0]}")
+technicals._open(ticker=technicals.tickers()[0]).tail(14).plot(color='black')
+```
+
+
+The above code should return:
+```python
+[1]: Open price data for AAPL
 ```
 ![AAPL_open](data/images/AAPL_open.png)
 
@@ -116,27 +125,26 @@ ohlcv(tickers: list or DataFrame,
           timeframe : str = '1D',
           api_key_path : str = '../../../resources/api_keys.env') -> DataFrame:
     
-    '''Returns pd.DataFrame with prices for the given tickers
+    '''
+    Returns pd.DataFrame with prices for the given tickers
     
-    ...
-    
-    Parameters
-    ----------
-    tickers : list of str 
-        list of tickers
-    start_date : str
-        string with date in following format YYYY-MM-DD; default = '2020-01-01'
-    end_date : str
-        string with date in following format YYYY-MM-DD; default = today's date {datetime.now.strftime('%Y-%m-%d')}
-    timeframe : str
-        timeframe for the ohlcv barset; default = '1D'. The valid intervals are: 1Min, 5Min, 15Min and 1D
-    api_key_path : str
-        path for the .env file containing Alpaca Trade API key and secret key
-    
-    
-    Returns
-    -------
-    ohlcv_df : DataFrame with securities price data
+        Parameters
+        ----------
+        tickers : list of str 
+            list of tickers
+        start_date : str
+            string with date in following format YYYY-MM-DD; default = '2020-01-01'
+        end_date : str
+            string with date in following format YYYY-MM-DD; default = today's date {datetime.now.strftime('%Y-%m-%d')}
+        timeframe : str
+            timeframe for the ohlcv barset; default = '1D'. The valid intervals are: 1Min, 5Min, 15Min and 1D
+        api_key_path : str
+            path for the .env file containing Alpaca Trade API key and secret key
+
+
+        Returns
+        -------
+        ohlcv_df : DataFrame with securities price data
     '''
 ```
 
@@ -146,8 +154,9 @@ Return <code>open</code> attribute of the barset.
 
 ```python
 _open(self, ticker) -> DataFrame:
-        '''Returns open price for ticker
-        
+    '''
+    Returns open price for ticker
+
         Parameters
         ----------
         ticker : str
@@ -157,7 +166,7 @@ _open(self, ticker) -> DataFrame:
         -------
         df : DataFrame
             'close' values
-        '''
+    '''
 ```
 <br>
 
@@ -166,8 +175,9 @@ Return <code>high</code> attribute of the barset.
 
 ```python
 _high(self, ticker) -> DataFrame:
-        '''Returns high price for ticker
-        
+    '''
+    Returns high price for ticker
+
         Parameters
         ----------
         ticker : str
@@ -177,7 +187,7 @@ _high(self, ticker) -> DataFrame:
         -------
         df : DataFrame
             'high' values
-        '''
+    '''
 ```
 <br>
 
@@ -186,8 +196,9 @@ Return <code>low</code> attribute of the barset.
 
 ```python
 _low(self, ticker) -> DataFrame:
-        '''Returns low price for ticker
-        
+    '''
+    Returns low price for ticker
+
         Parameters
         ----------
         ticker : str
@@ -197,7 +208,7 @@ _low(self, ticker) -> DataFrame:
         -------
         df : DataFrame
             'low' values
-        '''
+    '''
 ```
 <br>
 
@@ -206,8 +217,9 @@ Return <code>close</code> attribute of the barset.
 
 ```python
 _close(self, ticker) -> DataFrame:
-        '''Returns close price for ticker
-        
+    '''
+    Returns close price for ticker
+
         Parameters
         ----------
         ticker : str
@@ -217,7 +229,7 @@ _close(self, ticker) -> DataFrame:
         -------
         df : DataFrame
             'close' values
-        '''
+    '''
 ```
 <br>
 
@@ -226,8 +238,9 @@ Return <code>volume</code> attribute of the barset.
 
 ```python
 _volume(self, ticker) -> DataFrame:
-        '''Returns volume for ticker
-        
+    '''
+    Returns volume for ticker
+
         Parameters
         ----------
         ticker : str
@@ -237,7 +250,7 @@ _volume(self, ticker) -> DataFrame:
         -------
         df : DataFrame
             'volume' values
-        '''
+    '''
 ```
 <br>
 
@@ -263,7 +276,8 @@ where ***Relative strenght*** (***RS***) = *average gain* - *average loss*
 rsi(ticker : str,
     days : int = 14) -> DataFrame:
             
-        '''Returns pd.DataFrame with RSI values
+    '''
+    Returns pd.DataFrame with RSI values
 
         Parameters
         ----------
@@ -276,7 +290,7 @@ rsi(ticker : str,
         -------
         rsi : DataFrame
             RSI values
-        '''
+    '''
 ```
 <br>
 
@@ -296,7 +310,8 @@ therefore capturing the directional momentum.
 williams_range(ticker : str,
                days : int = 14) -> DataFrame:
     
-        '''Returns pd.DataFrame with Williams %R values
+    '''
+    Returns pd.DataFrame with Williams %R values
 
         Parameters
         ----------
@@ -309,7 +324,7 @@ williams_range(ticker : str,
         -------
         williams_range : DataFrame
             Williams %R values
-        '''
+    '''
 ```
 <br>
 
@@ -337,7 +352,8 @@ where ***a<sub>period</sub>*** = period of time to be measured.
 aroon(ticker : str,
       days : int = 25):
     
-        '''Returns pd.DataFrame with aroon Oscillator values
+    '''
+    Returns pd.DataFrame with aroon Oscillator values
 
         Parameters
         ----------
@@ -350,7 +366,7 @@ aroon(ticker : str,
         -------
         aroon : DataFrame
             Aroon high {aroon_up}, Aroon low {aroow_down}, and Aroon Oscillator {aroon_oscillator}
-        '''
+    '''
 ```
 ---
 [Illya Nayshevsky, Ph.D.](illya.n@me.com) <br>
