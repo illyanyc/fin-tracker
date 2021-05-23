@@ -61,7 +61,79 @@ class TechnicalAnalysis:
         return list(df.columns.levels[0])
     
     
-    def close(self,
+    def _open(self,
+             ticker) -> DataFrame:
+        '''Returns open price for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'close' values
+        '''
+        self.validate_ticker(ticker=ticker) # validate ticker
+        
+        df = self.ohlcv.xs('open', 
+                           axis=1, 
+                           level=1, 
+                           drop_level=False).droplevel(1, axis=1)
+        
+        return DataFrame(df[ticker]).rename(columns={ticker:'open'})
+    
+    
+    def _high(self,
+             ticker) -> DataFrame:
+        '''Returns high price for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'high' values
+        '''
+        self.validate_ticker(ticker=ticker) # validate ticker
+        
+        df = self.ohlcv.xs('high', 
+                           axis=1, 
+                           level=1, 
+                           drop_level=False).droplevel(1, axis=1)
+        
+        return DataFrame(df[ticker]).rename(columns={ticker:'high'})
+    
+    
+    def _low(self,
+             ticker) -> DataFrame:
+        '''Returns low price for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'low' values
+        '''
+        self.validate_ticker(ticker=ticker) # validate ticker
+        
+        df = self.ohlcv.xs('low', 
+                           axis=1, 
+                           level=1, 
+                           drop_level=False).droplevel(1, axis=1)
+        
+        return DataFrame(df[ticker]).rename(columns={ticker:'low'})
+    
+    
+    def _close(self,
              ticker) -> DataFrame:
         '''Returns close price for ticker
         
@@ -72,7 +144,7 @@ class TechnicalAnalysis:
 
         Returns
         -------
-        rsi : DataFrame
+        df : DataFrame
             'close' values
         '''
         self.validate_ticker(ticker=ticker) # validate ticker
@@ -83,6 +155,30 @@ class TechnicalAnalysis:
                            drop_level=False).droplevel(1, axis=1)
         
         return DataFrame(df[ticker]).rename(columns={ticker:'close'})
+    
+    
+    def _volume(self,
+             ticker) -> DataFrame:
+        '''Returns volume for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'volume' values
+        '''
+        self.validate_ticker(ticker=ticker) # validate ticker
+        
+        df = self.ohlcv.xs('volume', 
+                           axis=1, 
+                           level=1, 
+                           drop_level=False).droplevel(1, axis=1)
+        
+        return DataFrame(df[ticker]).rename(columns={ticker:'volume'})
     
     
     # Get RSI Values

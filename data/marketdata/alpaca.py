@@ -45,7 +45,7 @@ def ohlcv(tickers: list or DataFrame,
           start_date : str = '2020-01-01',
           end_date : str = datetime.now().strftime('%Y-%m-%d'),
           timeframe : str = '1D',
-          api_path : str = '../../../resources/api_keys.env'
+          api_key_path : str = '../../../resources/api_keys.env'
          ) -> DataFrame:
     
     '''Returns pd.DataFrame with prices for the given tickers
@@ -54,10 +54,17 @@ def ohlcv(tickers: list or DataFrame,
     
     Parameters
     ----------
-    tickers : list of str - tickers
-    start_date : str - string with date in following format YYYY-MM-DD; default = '2020-01-01'
-    end_date : str - string with date in following format YYYY-MM-DD; default = today's date {datetime.now.strftime('%Y-%m-%d')}
-    timeframe : str - timeframe for the ohlcv barset; default = '1D'
+    tickers : list of str 
+        list of tickers
+    start_date : str
+        string with date in following format YYYY-MM-DD; default = '2020-01-01'
+    end_date : str
+        string with date in following format YYYY-MM-DD; default = today's date {datetime.now.strftime('%Y-%m-%d')}
+    timeframe : str
+        timeframe for the ohlcv barset; default = '1D'. The valid intervals are: 1Min, 5Min, 15Min and 1D
+    api_key_path : str
+        path for the .env file containing Alpaca Trade API key and secret key
+    
     
     Returns
     -------

@@ -6,9 +6,22 @@
 estimated completion of v.0.1 --> Q4 2021
 
 ---
+#### Table of Contents
+* [Requirements](#requirements)
+* [Usage](#usage)
+* [Market Data](#market-data)
+* [Technical Analysis](#technical-analysis)
+    * [RSI](#rsi)
+    * [Williams Range](#williams-range)
+    * [Aroon Indicator](#aroon-indicator)
+
+---
 
 ## Requirements
-<code>technitrade</code> is composed in <code>.ipynb</code> [Jupyter](https://jupyter.org/install) notebooks that run on [Anaconda](https://docs.anaconda.com/)
+<code>technitrade</code> is composed in <code>.ipynb</code> [Jupyter](https://jupyter.org/install) notebooks that run on [Anaconda](https://docs.anaconda.com/) which return a [panels](https://panel.holoviz.org/) Dashboard and <code>.py</code> core files which contain the methods for computation.
+
+
+### Jupyter Lab
 ```bash
 pip install jupyterlab
 ```
@@ -20,12 +33,7 @@ pip install jupyterlab
 conda install numpy
 conda install pandas
 conda install matplotlib
-
-
-# data connetions and api
 pip install python-dotenv
-pip install alpaca-trade-api
-
 
 # visualization
 conda install -c pyviz panel
@@ -36,6 +44,14 @@ conda install "notebook>=5.3" "ipywidgets>=7.5"
 jupyter labextension install jupyterlab-plotly@4.14.3
 jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.14.3
 ```
+<br>
+
+<code>technitrade</code> uses [Alpaca Trade API](https://pypi.org/project/alpaca-trade-api/).
+
+```python
+pip install alpaca-trade-api
+```
+<br>
 
 ---
 
@@ -48,10 +64,20 @@ import data.marketdata.alpaca as api
 ```
 <br>
 
+Set path to your <code>.env</code> file containing the API keys:
+```python
+api_key_path = '../{api_keys}.env' # path to the .env file containing the API keys
+```
+The Alpaca Trade API keys muyst be titled:
+> ALPACA_API_KEY<br>
+> ALPACA_SECRET_KEY<br>
+
+
 Gather **ohlcv** (*open, high, low, close, volume*) data:
 ```python
 tickers = ['FB','AAPL','AMZN','NFLX','GOOG'] # a list of tickers
-ohlcv = api.ohlcv(tickers) # calls Alpaca Trade API and gers ohlcv data
+
+ohlcv = api.ohlcv(tickers=tickers, api_key_path=api_key_path)
 ```
 
 <br>
@@ -69,11 +95,156 @@ technicals = TechnicalAnalysis(ohlcv)
 ```
 <br>
 
-Testing the instance of the class can be done by calling:
+Testing the instance of the class can be done by plotting the closing price for the first ticker in the tickers list:
 ```python
-technicals.close(ticker=tickers[0]).head()
+print(f"Open price data for {stocks.tickers()[0]}")
+technicals._open(ticker=stocks.tickers()[0]).tail(14).plot(color='black')
+```
+![AAPL_open](data/images/AAPL_open.png)
+
+
+---
+## Market data
+Market data data access is currently only available via the [Alpaca Trade API](https://alpaca.markets/docs/). The API connector is available by calling <code>data.marketdata.alpaca</code> as shown in the [Usage](#usage) section.
+
+The Alpaca Trade API connector method <code>ohlcv</code>:
+
+```python
+ohlcv(tickers: list or DataFrame, 
+          start_date : str = '2020-01-01',
+          end_date : str = datetime.now().strftime('%Y-%m-%d'),
+          timeframe : str = '1D',
+          api_key_path : str = '../../../resources/api_keys.env') -> DataFrame:
+    
+    '''Returns pd.DataFrame with prices for the given tickers
+    
+    ...
+    
+    Parameters
+    ----------
+    tickers : list of str 
+        list of tickers
+    start_date : str
+        string with date in following format YYYY-MM-DD; default = '2020-01-01'
+    end_date : str
+        string with date in following format YYYY-MM-DD; default = today's date {datetime.now.strftime('%Y-%m-%d')}
+    timeframe : str
+        timeframe for the ohlcv barset; default = '1D'. The valid intervals are: 1Min, 5Min, 15Min and 1D
+    api_key_path : str
+        path for the .env file containing Alpaca Trade API key and secret key
+    
+    
+    Returns
+    -------
+    ohlcv_df : DataFrame with securities price data
+    '''
 ```
 
+
+### Open
+Return <code>open</code> attribute of the barset.
+
+```python
+_open(self, ticker) -> DataFrame:
+        '''Returns open price for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'close' values
+        '''
+```
+<br>
+
+### High
+Return <code>high</code> attribute of the barset.
+
+```python
+_high(self, ticker) -> DataFrame:
+        '''Returns high price for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'high' values
+        '''
+```
+<br>
+
+### Low
+Return <code>low</code> attribute of the barset.
+
+```python
+_low(self, ticker) -> DataFrame:
+        '''Returns low price for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'low' values
+        '''
+```
+<br>
+
+### Close
+Return <code>close</code> attribute of the barset.
+
+```python
+_close(self, ticker) -> DataFrame:
+        '''Returns close price for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'close' values
+        '''
+```
+<br>
+
+### Volume
+Return <code>volume</code> attribute of the barset.
+
+```python
+_volume(self, ticker) -> DataFrame:
+        '''Returns volume for ticker
+        
+        Parameters
+        ----------
+        ticker : str
+            ticker to be processed
+
+        Returns
+        -------
+        df : DataFrame
+            'volume' values
+        '''
+```
+<br>
+
+---
+## Fundamental Data
+Fundamental data is pulled from FinnHub via their free API and stored in <code>data/data.db</code>.
+The stable version of module to refresh the data is currently under development.
 
 ---
 
@@ -89,8 +260,8 @@ where ***Relative strenght*** (***RS***) = *average gain* - *average loss*
 
 ***Class method:***
 ```python
-rsi(days : int = 14,
-    ticker : str) -> DataFrame:
+rsi(ticker : str,
+    days : int = 14) -> DataFrame:
             
         '''Returns pd.DataFrame with RSI values
 
@@ -109,7 +280,7 @@ rsi(days : int = 14,
 ```
 <br>
 
-### ***Williams %R***
+### ***Williams Range***
 [Williams %R](https://www.investopedia.com/terms/w/williamsr.asp) (*Williams Percent Range*), is a momentum indicator with range [-100, 0] measures overbought and oversold levels. Williams %R measures ratio of the differences:
 * highest high and close <br>
 * highest high and lowest low <br>
@@ -122,8 +293,8 @@ therefore capturing the directional momentum.
 
 ***Class method:***
 ```python
-williams_range(days : int = 14,
-               ticker : str) -> DataFrame:
+williams_range(ticker : str,
+               days : int = 14) -> DataFrame:
     
         '''Returns pd.DataFrame with Williams %R values
 
@@ -163,8 +334,8 @@ where ***a<sub>period</sub>*** = period of time to be measured.
 
 ***Class method:***
 ```python
-aroon(days : int = 25,
-      ticker : str):
+aroon(ticker : str,
+      days : int = 25):
     
         '''Returns pd.DataFrame with aroon Oscillator values
 
