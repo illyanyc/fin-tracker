@@ -16,7 +16,8 @@ from pandas import DataFrame, Timestamp, concat
 alpaca_secret_key = str()
 alpaca_secret_key = str()
 
-def load_api_keys(api_path : str):
+def load_api_keys(api_path : str,
+                 debug : bool = False):
     '''Instantiates connection to Alpaca Trade API'''
     
     # load API keys
@@ -27,9 +28,10 @@ def load_api_keys(api_path : str):
     alpaca_api_key = os.getenv("ALPACA_API_KEY")
     alpaca_secret_key = os.getenv("ALPACA_SECRET_KEY")
 
-    print(f"Testing Apaca Trade API key by data type:")
-    print(f"ALPACA_API_KEY: {type(alpaca_api_key)}")
-    print(f"ALPACA_SECRET_KEY: {type(alpaca_secret_key)}")
+    if debug:
+        print(f"Testing Apaca Trade API key by data type:")
+        print(f"ALPACA_API_KEY: {type(alpaca_api_key)}")
+        print(f"ALPACA_SECRET_KEY: {type(alpaca_secret_key)}")
 
     # create the Alpaca API object
     api = tradeapi.REST(
@@ -45,7 +47,8 @@ def ohlcv(tickers: list or DataFrame,
           start_date : str = '2020-01-01',
           end_date : str = datetime.now().strftime('%Y-%m-%d'),
           timeframe : str = '1D',
-          api_key_path : str = '../../../resources/api_keys.env'
+          api_key_path : str = '../../../resources/api_keys.env',
+          debug : bool = False
          ) -> DataFrame:
     
     '''Returns pd.DataFrame with prices for the given tickers
@@ -70,7 +73,7 @@ def ohlcv(tickers: list or DataFrame,
     -------
     ohlcv_df : DataFrame with securities price data
     '''
-    api = load_api_keys(api_key_path)
+    api = load_api_keys(api_key_path, debug=debug)
     
     # parse start and end dates
     start_date = Timestamp(start_date, tz="America/New_York").isoformat()
