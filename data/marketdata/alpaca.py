@@ -16,13 +16,12 @@ from pandas import DataFrame, Timestamp, concat
 alpaca_secret_key = str()
 alpaca_secret_key = str()
 
-def load_api_keys(api_path : str,
+def load_api_keys(api_path : str = '../resources/api_keys.env',
                  debug : bool = False):
     '''Instantiates connection to Alpaca Trade API'''
     
     # load API keys
-    api_key_path = Path('../resources/api_keys.env')  # replace with `/path/to/your/api_keys.env`
-    load_dotenv(api_key_path)
+    load_dotenv(api_path)
 
     # set Alpaca API key and secret
     alpaca_api_key = os.getenv("ALPACA_API_KEY")
