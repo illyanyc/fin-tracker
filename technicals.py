@@ -319,6 +319,144 @@ class TechnicalAnalysis:
         return aroon
     
     
+    
+    ############# BACKTEST METHODS #############
+    def wr_backtest(self,
+                    ticker : str,
+                    wr_rules : pd.DataFrame,
+                    seed_cash : int or float,
+                    wr_range : int = 14,
+                    start_date : str = '2020-01-01',
+                    end_date : str = datetime.now().strftime('%Y-%m-%d'),
+                    debug : bool = False):
+    
+        '''
+        Returns open price for ticker
+        
+            Parameters
+            ----------
+            ticker : str
+                ticker to be processed
+            wr_rules : dict
+                Keys:
+                    'long' : int
+                        conditions for long positions -> go long if dipped above given value
+                    'short' : int
+                        conditions for short positions -> go short if dipped below given value
+            wr_range : int
+                range for Williams %R 
+            seed_cash : int of float
+                starting value of the hypothetical portfolio
+            start_date : str
+                string with date in following format YYYY-MM-DD; default = '2020-01-01'
+            end_date : str
+                string with date in following format YYYY-MM-DD; default = today's date {datetime.now.strftime('%Y-%m-%d')}
+                debug : bool
+                    Prints nested loop values during excecution
+            
+            Returns
+            -------
+            df : DataFrame
+                results of Trade potfolio, Hold portfolio
+        '''
+
+        ohlcv = self.ohlcv
+        
+        # get close data
+        data = self._close(ticker=ticker)
+        
+        # calcualte williams %r
+        data['wr'] = self.williams_range(ticker=ticker, days=wr_range)[wr_range:]
+        data = data.dropna().reset_index()
+
+        # instantiate stock and cash columns, seed columns
+        data['pos'] = bool()
+        data['stock_value'] = int()
+        data['shares'] = int()
+        data['cash'] = int()
+        data['cash'].iloc[0] = seed_cash
+        data['pos'].iloc[0] = False
+
+        # iterate over close df
+        for i in range(1,len(data.index)-1):
+            lastday = data.iloc[i-1]
+            today = data.iloc[i]
+            pos = data.iloc[i-1]['pos']
+
+            if debug:
+                print(today.time)
+
+            # long case
+            if today['wr'] > wr_rules['long'] and lastday['wr'] <= wr_rules['long'] and pos == False:
+                # handle stock
+                shares = int(lastday['cash'] / today['close'])
+                data.at[i, 'shares'] = shares
+
+                stock_value = shares * today['close']
+                data.at[i, 'stock_value'] = stock_value
+
+                # handle cash
+                cash = lastday['cash'] - stock_value
+                data.at[i, 'cash'] = cash
+
+                # handle position bool
+                data.at[i, 'pos'] = True
+
+                if debug:
+                    print(f"Open Long : shares - {shares}, stock_value - {stock_value}, cash - {cash}, close = {today['close']}, wr = {today['wr']}, pos {True}")
+
+
+            # close long case
+            elif today['wr'] < wr_rules['short'] and lastday['wr'] >= wr_rules['short'] and pos == True:
+                # handle cash
+                cash = lastday['cash'] + (lastday['shares'] * today['close'])
+                data.at[i, 'cash'] = cash
+
+                # handle stock
+                shares = 0
+                data.at[i, 'shares'] = shares
+
+                stock_value = 0
+                data.at[i, 'stock_value'] = stock_value
+
+                # handle position bool
+                data.at[i, 'pos'] = False
+
+                if debug:
+                    print(f"Close Long : shares - {shares}, stock_value - {stock_value}, cash - {cash}, close = {today['close']}, wr = {today['wr']}, pos {True}")
+
+            # hold case        
+            else:
+                # handle stock
+                shares = lastday['shares']
+                data.at[i, 'shares'] = shares
+
+                stock_value = shares * today['close']
+                data.at[i, 'stock_value'] = stock_value
+
+                # handle cash
+                cash = lastday['cash']
+                data.at[i, 'cash'] = cash
+
+                # handle position bool
+                data.at[i, 'pos'] = lastday['pos']
+
+                if debug:
+                    print(f"Hold : shares - {shares}, stock_value - {stock_value}, cash - {cash}, close = {today['close']}, wr = {today['wr']}, pos {True}")
+
+        data = data.iloc[:-1,:]
+        
+        # create Hold portfolio colums
+        init_hold_shares = data.iloc[0]['cash']/data.iloc[0]['close']
+        data['Hold'] = init_hold_shares * data['close']
+        
+        # create Trade Portfolio column
+        data['Trade'] = data['cash'] + data['stock_value']
+        
+        return data
+    
+    
+    
 def test():
     pass
 
