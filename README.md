@@ -181,7 +181,7 @@ where ***Relative strenght*** (***RS***) = *average gain* - *average loss*
 
 ***Class method:***
 ```python
-rsi(ticker : str, days : int = 14) -> DataFrame
+rsi(ticker : str, days : int = 14)
 ```
 <br>
 
@@ -198,7 +198,7 @@ therefore capturing the directional momentum.
 
 ***Class method:***
 ```python
-williams_range(ticker : str, days : int = 14) -> DataFrame
+williams_range(ticker : str, days : int = 14)
 ```
 <br>
 
