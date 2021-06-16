@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=slice&color=gradient&height=300&section=header&text=technitrade&fontSize=60&fontColor=black)
+<img src="img/logo.svg" width=30%>
 
 
 <code>technitrade</code> *is a developing public python library of all (or rather most) financial technical indicators*
@@ -123,50 +123,15 @@ ohlcv(tickers: list or DataFrame,
           start_date : str = '2020-01-01',
           end_date : str = datetime.now().strftime('%Y-%m-%d'),
           timeframe : str = '1D',
-          api_key_path : str = '../../../resources/api_keys.env') -> DataFrame:
-    
-    '''
-    Returns pd.DataFrame with prices for the given tickers
-    
-        Parameters
-        ----------
-        tickers : list of str 
-            list of tickers
-        start_date : str
-            string with date in following format YYYY-MM-DD; default = '2020-01-01'
-        end_date : str
-            string with date in following format YYYY-MM-DD; default = today's date {datetime.now.strftime('%Y-%m-%d')}
-        timeframe : str
-            timeframe for the ohlcv barset; default = '1D'. The valid intervals are: 1Min, 5Min, 15Min and 1D
-        api_key_path : str
-            path for the .env file containing Alpaca Trade API key and secret key
-
-
-        Returns
-        -------
-        ohlcv_df : DataFrame with securities price data
-    '''
+          api_key_path : str = '../../../resources/api_keys.env') -> DataFrame
 ```
 
-
+## Class methods
 ### Open
 Return <code>open</code> attribute of the barset.
 
 ```python
-_open(self, ticker) -> DataFrame:
-    '''
-    Returns open price for ticker
-
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
-
-        Returns
-        -------
-        df : DataFrame
-            'close' values
-    '''
+_open(self, ticker) -> DataFrame
 ```
 <br>
 
@@ -174,20 +139,7 @@ _open(self, ticker) -> DataFrame:
 Return <code>high</code> attribute of the barset.
 
 ```python
-_high(self, ticker) -> DataFrame:
-    '''
-    Returns high price for ticker
-
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
-
-        Returns
-        -------
-        df : DataFrame
-            'high' values
-    '''
+_high(self, ticker) -> DataFrame
 ```
 <br>
 
@@ -195,20 +147,7 @@ _high(self, ticker) -> DataFrame:
 Return <code>low</code> attribute of the barset.
 
 ```python
-_low(self, ticker) -> DataFrame:
-    '''
-    Returns low price for ticker
-
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
-
-        Returns
-        -------
-        df : DataFrame
-            'low' values
-    '''
+_low(self, ticker) -> DataFrame
 ```
 <br>
 
@@ -216,20 +155,7 @@ _low(self, ticker) -> DataFrame:
 Return <code>close</code> attribute of the barset.
 
 ```python
-_close(self, ticker) -> DataFrame:
-    '''
-    Returns close price for ticker
-
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
-
-        Returns
-        -------
-        df : DataFrame
-            'close' values
-    '''
+_close(self, ticker) -> DataFrame
 ```
 <br>
 
@@ -237,27 +163,9 @@ _close(self, ticker) -> DataFrame:
 Return <code>volume</code> attribute of the barset.
 
 ```python
-_volume(self, ticker) -> DataFrame:
-    '''
-    Returns volume for ticker
-
-        Parameters
-        ----------
-        ticker : str
-            ticker to be processed
-
-        Returns
-        -------
-        df : DataFrame
-            'volume' values
-    '''
+_volume(self, ticker) -> DataFrame
 ```
 <br>
-
----
-## Fundamental Data
-Fundamental data is pulled from FinnHub via their free API and stored in <code>data/data.db</code>.
-The stable version of module to refresh the data is currently under development.
 
 ---
 
@@ -273,24 +181,7 @@ where ***Relative strenght*** (***RS***) = *average gain* - *average loss*
 
 ***Class method:***
 ```python
-rsi(ticker : str,
-    days : int = 14) -> DataFrame:
-            
-    '''
-    Returns pd.DataFrame with RSI values
-
-        Parameters
-        ----------
-        days : int
-            number of days for RSI calculation; default = 14
-        ticker : str
-            ticker to be processed - default = 'AAPL'
-
-        Returns
-        -------
-        rsi : DataFrame
-            RSI values
-    '''
+rsi(ticker : str, days : int = 14) -> DataFrame
 ```
 <br>
 
@@ -307,24 +198,7 @@ therefore capturing the directional momentum.
 
 ***Class method:***
 ```python
-williams_range(ticker : str,
-               days : int = 14) -> DataFrame:
-    
-    '''
-    Returns pd.DataFrame with Williams %R values
-
-        Parameters
-        ----------
-        days : int
-            number of days for RSI calculation; default = 14
-        ticker : str
-            ticker to be processed - default = 'AAPL'
-
-        Returns
-        -------
-        williams_range : DataFrame
-            Williams %R values
-    '''
+williams_range(ticker : str, days : int = 14) -> DataFrame
 ```
 <br>
 
@@ -349,24 +223,7 @@ where ***a<sub>period</sub>*** = period of time to be measured.
 
 ***Class method:***
 ```python
-aroon(ticker : str,
-      days : int = 25):
-    
-    '''
-    Returns pd.DataFrame with aroon Oscillator values
-
-        Parameters
-        ----------
-        days : int
-            number of days for Aroon Oscillator calculation; default = 25
-        ticker : str
-            ticker to be processed
-
-        Returns
-        -------
-        aroon : DataFrame
-            Aroon high {aroon_up}, Aroon low {aroow_down}, and Aroon Oscillator {aroon_oscillator}
-    '''
+aroon(ticker : str, days : int = 25)
 ```
 ---
 [Illya Nayshevsky, Ph.D.](illya.n@me.com) <br>
